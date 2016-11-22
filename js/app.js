@@ -123,7 +123,7 @@ var checkCollision = function(anEnemy) {
         score += 1;
         gameLevel += 1;
         console.log('current score: ' + score + ', current level: ' + gameLevel);
-        increaseDifficulty(score);
+
 
     }
 
