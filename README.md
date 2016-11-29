@@ -10,4 +10,4 @@ How it works:
 
 Have fun!
 
-Play here: <a href="https://dragidare.github.io/frontend-nanodegree-arcade-game/">A rcade Game Frogger</a>
+Play here: <a href="https://dragidare.github.io/frontend-nanodegree-arcade-game/"> Arcade Game Frogger</a>
