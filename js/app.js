@@ -38,6 +38,15 @@ Enemy.prototype.update = function(dt) {
         }
 
     };
+
+
+    // check for player reaching top of canvas and winning the game
+    // if player wins, add 1 to the score and level
+    // pass score as an argument to the increaseDifficulty function
+
+};
+
+Player.prototype.checkCollisions = function(){
     if (
         player.y + 131 >= this.y + 90 &&
         player.x + 25 <= this.x + 88 &&
@@ -48,25 +57,9 @@ Enemy.prototype.update = function(dt) {
         player.x = 202.5;
         player.y = 383;
     }
-
-    // check for player reaching top of canvas and winning the game
-    // if player wins, add 1 to the score and level
-    // pass score as an argument to the increaseDifficulty function
-    if (player.y + 63 <= 0) {
-        player.x = 202.5;
-        player.y = 383;
-        console.log('you made it!');
-
-        ctx.fillStyle = 'white';
-        ctx.fillRect(0, 0, 505, 171);
-
-        score += 1;
-        gameLevel += 1;
-        console.log('current score: ' + score + ', current level: ' + gameLevel);
-
-
-    }
 };
+
+
 
 // Draw the character on the screen, required method for game
 Chraracter.prototype.render = function() {
@@ -95,14 +88,29 @@ Player.prototype.update = function() {
     if (this.x > 505) {
         this.x = 505;
     }
-    if (player.y > 383) {
-        player.y = 383;
+    if (this.y > 383) {
+        this.y = 383;
     }
-    if (player.x > 402.5) {
-        player.x = 402.5;
+    if (this.x > 402.5) {
+        this.x = 402.5;
     }
-    if (player.x < 2.5) {
-        player.x = 2.5;
+    if (this.x < 2.5) {
+        this.x = 2.5;
+    }
+
+    if (this.y + 63 <= 0) {
+        this.x = 202.5;
+        this.y = 383;
+        console.log('you made it!');
+
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, 505, 171);
+
+        score += 1;
+        gameLevel += 1;
+        console.log('current score: ' + score + ', current level: ' + gameLevel);
+
+
     }
 
 };
