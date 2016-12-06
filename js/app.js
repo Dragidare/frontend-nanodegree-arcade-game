@@ -1,8 +1,10 @@
+"use strict";
+
 // DOM element for score display
 var scoreLevelDiv = document.createElement('h3');
 // 'constant' variables as sugessted in the code review
-var titleWidth = 101,
-    titleHeight = 83;
+var TITLE_WIDTH = 101,
+    TITLE_HEIGHT = 83;
 
 // Superclass for all characters as sugessted in the code review
 var Chraracter = function(x, y) {
@@ -18,6 +20,7 @@ var Game = function(score, lives, level) {
 
 // Enemies our player must avoid
 Enemy.prototype = new Chraracter;
+Enemy.prototype.constructor = Enemy;
 function Enemy(x, y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -39,6 +42,9 @@ Enemy.prototype.update = function(dt) {
     if (game.playerLives > 0) {
         this.x += this.speed * dt * game.gameLevel;
     };
+    if (this.x > 505) {
+        this.x = 0;
+    }
 
     // check for player reaching top of canvas and winning the game
     // if player wins, add 1 to the score and level
@@ -53,9 +59,7 @@ Enemy.prototype.checkCollisions = function() {
         player.x = 202.5;
         player.y = 383;
     }
-    if (this.x > 505) {
-        this.x = 0;
-    }
+
 
 };
 
@@ -63,7 +67,7 @@ Enemy.prototype.checkCollisions = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 Player.prototype = new Chraracter;
-
+Player.prototype.constructor = Player;
 function Player(x, y) {
     this.x = x;
     this.y = y;
@@ -103,16 +107,16 @@ Player.prototype.update = function() {
 // player handleinput method
 Player.prototype.handleInput = function(keyPressed) {
     if (keyPressed == 'left') {
-        this.x -= titleWidth;
+        this.x -= TITLE_WIDTH;
     }
     if (keyPressed == 'right') {
-        this.x += titleWidth;
+        this.x += TITLE_WIDTH;
     }
     if (keyPressed == 'up') {
-        this.y -= titleHeight;
+        this.y -= TITLE_HEIGHT;
     }
     if (keyPressed == 'down') {
-        this.y += titleHeight;
+        this.y += TITLE_HEIGHT;
     }
     if (keyPressed == 'space' && game.playerLives == 0) {
         game.score = 0;
@@ -123,10 +127,10 @@ Player.prototype.handleInput = function(keyPressed) {
 
 //Gems our player can collect
 Gem.prototype = new Chraracter;
-
+Gem.prototype.constructor = Gem;
 function Gem(x, y) {
-    this.x = this.x = 0 + titleWidth * Math.floor(5 * Math.random());
-    this.y = this.y = 62 + titleHeight * Math.floor(3 * Math.random());
+    this.x = this.x = 0 + TITLE_WIDTH * Math.floor(5 * Math.random());
+    this.y = this.y = 62 + TITLE_HEIGHT * Math.floor(3 * Math.random());
     this.sprite = 'images/GemOrange.png';
 };
 
@@ -140,8 +144,8 @@ Gem.prototype.update = function() {
         console.log('collected');
         game.score += (10 * game.gameLevel);
         console.log('current score: ' + game.score + ', current level: ' + game.gameLevel + ' lives: ' + game.playerLives);
-        gem.x = 0 + titleWidth * Math.floor(5 * Math.random());
-        gem.y = 62 + titleHeight * Math.floor(3 * Math.random());
+        this.x = 0 + TITLE_WIDTH * Math.floor(5 * Math.random());
+        this.y = 62 + TITLE_HEIGHT * Math.floor(3 * Math.random());
     };
 
 };
@@ -178,7 +182,7 @@ var gem = new Gem();
 
 var allEnemies = [];
 for (var i = 0; i <= 2; i++) {
-    var enemy = new Enemy(0, 62 + titleHeight * Math.floor(3 * Math.random()), Math.random() * 125);
+    var enemy = new Enemy(0, 62 + TITLE_HEIGHT * Math.floor(3 * Math.random()), Math.random() * 125);
     allEnemies.push(enemy);
 }
 
