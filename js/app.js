@@ -1,3 +1,10 @@
+/* app.js
+ * This file "extends engine.js and providewa the game logic
+ * draws the initial game board on the screen, and then calls the update and
+ * render methods on your player and enemy objects (defined in your app.js).
+ */
+
+// Whole-script strict mode syntax
 "use strict";
 
 // DOM element for score display
@@ -51,7 +58,7 @@ Enemy.prototype.update = function(dt) {
     // pass score as an argument to the increaseDifficulty function
 
 };
-
+// method that checks if thes is collision between enemy and player
 Enemy.prototype.checkCollisions = function() {
     if (player.y + 131 >= this.y + 90 && player.x + 25 <= this.x + 88 && player.y + 73 <= this.y + 135 && player.x + 76 >= this.x + 11) {
         game.playerLives -= 1;
@@ -59,7 +66,6 @@ Enemy.prototype.checkCollisions = function() {
         player.x = 202.5;
         player.y = 383;
     }
-
 
 };
 
@@ -104,7 +110,7 @@ Player.prototype.update = function() {
     }
 };
 
-// player handleinput method
+// Player handleinput method
 Player.prototype.handleInput = function(keyPressed) {
     if (keyPressed == 'left') {
         this.x -= TITLE_WIDTH;
@@ -125,7 +131,9 @@ Player.prototype.handleInput = function(keyPressed) {
     }
 }
 
+//Gems class
 //Gems our player can collect
+
 Gem.prototype = new Chraracter;
 Gem.prototype.constructor = Gem;
 function Gem(x, y) {
@@ -134,7 +142,7 @@ function Gem(x, y) {
     this.sprite = 'images/GemOrange.png';
 };
 
-// gem update() method
+// Gem update() method
 Gem.prototype.update = function() {
 
     if (this.x > 505) {
@@ -150,7 +158,7 @@ Gem.prototype.update = function() {
 
 };
 
-// Function to display player's score
+// Game method to display player's score
 Game.prototype.displayScoreLevel = function(aScore, aLevel, aLives) {
     var canvas = document.getElementsByTagName('canvas');
     var firstCanvasTag = canvas[0];
@@ -159,7 +167,7 @@ Game.prototype.displayScoreLevel = function(aScore, aLevel, aLives) {
     scoreLevelDiv.innerHTML = 'Score: ' + aScore + ' / ' + 'Level: ' + aLevel + ' / ' + 'Lives: ' + aLives;
     document.body.appendChild(scoreLevelDiv, firstCanvasTag[0]);
 };
-
+// Game update method
 Game.prototype.update = function() {
     this.displayScoreLevel(this.score, this.gameLevel, this.playerLives);
 }
